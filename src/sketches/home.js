@@ -18,24 +18,70 @@ export function sketch(p5) {
       }
     };
 
-    let fourSquare = () => {
-        p5.fill(50);
-        p5.square(0,0,25);
-        p5.fill(100);
-        p5.square(0,10,25);
-        p5.fill(150);
-        // p5.square(0,20,25);
-        p5.fill(200);
-        p5.square(0,30,25);
-    }
+
   
     p5.draw = () => {
-      p5.background(0);
-      p5.normalMaterial();
-      p5.noStroke();
+        p5.background(0);
+        p5.normalMaterial();
+        p5.noStroke();
+        let touching = (x, y, w, h) => {
+            if ((p5.mouseX>x) && (p5.mouseX<x+w) && (p5.mouseY>y) && (p5.mouseY<y+h)){
+                return true;
+              }
+              else return false;
+        }
+    
+        let iconSquares = {
+            square1: () => {
+            let bootstrap = {
+                x: -100,
+                y: 0,
+                w: 100,
+                h: 100
+            }
+    
+                let default_style = () => {
+                    p5.fill(50);
+    
+                }
 
-      static_gif.position(p5.windowWidth/2, p5.windowHeight/2)
+                let hover_style = () => {
+                    p5.fill(100);
+    
+                }
+
+                touching(bootstrap.x, bootstrap.y, bootstrap.w,  bootstrap.h) ? hover_style() : default_style()
+                p5.square(bootstrap.x, bootstrap.y, bootstrap.w)
+            },
+            square2: () => {
+                // psona
+                p5.fill(100);
+            p5.square(0,0,100);
+            },
+            square3: () => {
+                // disabled
+                p5.fill(150);
+                p5.square(-100,-100,100);
+            },
+            square4: () => {
+                // disabled
+                p5.fill(200);
+                p5.square(0,-100,100);
+            }
+    }
+    
+        let fourSquare = () => {
+            iconSquares.square1()
+            iconSquares.square2()
+            iconSquares.square3()
+            iconSquares.square4()   
+        }
+
+
+
+      static_gif.position((p5.windowWidth/2)-100, (p5.windowHeight/2)-100)
       static_gif.size(0, 0)
+    //   static_gif.style("z-index: -1")
   
       p5.push();
       fourSquare()
