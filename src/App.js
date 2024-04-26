@@ -1,23 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
+import * as home from './sketches/home'
+import { useMemo, useState } from 'react';
+import { ReactP5Wrapper } from '@p5-wrapper/react';
 
 function App() {
+  const sketches = useMemo(
+    () => [home.sketch], [home]
+  )
+
+  const [state, setState] = useState({
+    rotation: 160,
+    sketch: home.sketch,
+    unmount: false
+  });
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ReactP5Wrapper sketch={state.sketch}/>
     </div>
   );
 }
